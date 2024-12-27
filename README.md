@@ -1,33 +1,28 @@
-Jinja2 Live Preview
-===================
+# Jinja2 Live Preview
 
-[![Build Status](https://travis-ci.org/crccheck/jinja-livepreview.svg)](https://travis-ci.org/crccheck/jinja2-livepreview)
+Fork of Jinja2 Live Preview with HTML and no Ansible.
 
-If you've ever wondered how a Jinja2 filter would work in an Ansible template,
-but cried at the thought of doing a run just to test a template, this is for
-you.
-
-
-Running the project
--------------------
+## Running the project
 
 ### Via Docker
 
-    docker run --rm -p 8080:8080 crccheck/jinja2-livepreview
+    docker run --rm -p 9797:9797 rangzen/jinja2-livepreview
 
 If you want to change the port, specify the `PORT` environment variable like:
 
-    docker run --rm -e PORT=5000 -p 5000:5000 crccheck/jinja2-livepreview
+    docker run --rm -e PORT=5000 -p 5000:5000 rangzen/jinja2-livepreview
 
+## Dev Installation
 
-Developing
-----------
+- `npm install -g nodemon`.
+- `poetry install`.
+- Set the Python Interpreter in VScode if needed.
+- `poetry shell`.
+- `make docker/assets`.
+- `make dev`
+- Open `http://localhost:9797`.
 
-    mkvirtualenv jinja2-livepreview --py=python3.5
-    make install
+## References
 
-
-Prior art
----------
-
-* https://github.com/abourguignon/jinja2-live-parser Original by `abourguignon`
+- <https://github.com/crccheck/jinja2-livepreview> Original by `crccheck`.
+- <https://github.com/abourguignon/jinja2-live-parser> Original by `abourguignon`.

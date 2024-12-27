@@ -47,6 +47,7 @@ sock.onmessage = function (event) {
       log(data.error)
     } else if ('render' in data) {
       $('#output').text(data.render)
+      $('#output-html').html(data.render)
     } else if ('context_type' in data) {
       if (data.context_type === 'json') {
         $('#context-json').attr('class', 'active')

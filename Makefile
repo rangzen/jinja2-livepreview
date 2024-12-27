@@ -22,13 +22,13 @@ docker/assets: ## Build assets/bundles via Docker
 	docker run --rm -v ${PWD}:/app:rw --workdir /app node:6 /bin/sh -c "npm install && npm run build"
 
 docker/build: ## Build Docker image
-	docker build -t crccheck/jinja2-livepreview .
+	docker build -t rangzen/jinja2-livepreview .
 
 docker/bash: ## Run a shell in the Docker image
-	docker run --rm -it -v ${PWD}:/app -p 8080:8080 crccheck/jinja2-livepreview /bin/sh
+	docker run --rm -it -v ${PWD}:/app -p 9797:9797 rangzen/jinja2-livepreview /bin/sh
 
 docker/run: ## Run Docker image
-	docker run --rm -v ${PWD}:/app -p 8080:8080 crccheck/jinja2-livepreview
+	docker run --rm -v ${PWD}:/app -p 9797:9797 rangzen/jinja2-livepreview
 
 docker/push: ## Publish Docker image to the registry
-	docker push crccheck/jinja2-livepreview
+	docker push rangzen/jinja2-livepreview

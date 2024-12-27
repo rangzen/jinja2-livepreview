@@ -1,17 +1,19 @@
-FROM python:3.6-alpine
-MAINTAINER Chris Chang
+FROM python:3.11-alpine
 
-RUN apk add --no-cache \
-      # Ansible/pycrypto
-      gcc g++ make libffi-dev openssl-dev
+# Prevents Python from writing pyc files to disc
+ENV PYTHONDONTWRITEBYTECODE=1
+# Prevents Python from buffering stdout and stderr
+ENV PYTHONUNBUFFERED=1
 
-COPY requirements.txt /app/requirements.txt
-RUN pip install --disable-pip-version-check -r /app/requirements.txt
-
-COPY . /app
 WORKDIR /app
 
-ENV PORT 8080
-EXPOSE 8080
+RUN pip install --no-cache-dir poetry
+
+COPY . /app
+
+RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
+
+ENV PORT 9797
+EXPOSE 9797
 
 CMD ["python", "web.py"]

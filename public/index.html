@@ -9,7 +9,7 @@
   <style>
     .input {
       position: relative;
-      height: 12em;
+      height: 24em;
       width: 100%;
     }
 
@@ -24,37 +24,42 @@
 </head>
 <body>
   <div class="container-fluid">
+    <h4>Logs
+      <small><span class="glyphicon glyphicon-question-sign" title="Errors and debugging will show here"></span></small>
+    </h4>
+    <pre id="log"></pre>
+
     <div class="row">
       <div class="col-sm-6">
         <h4>Jinja2 Template
           <small><span class="glyphicon glyphicon-question-sign" title="Put your Jinja2 template here"></span></small>
         </h4>
         <div class="input" id="jinja2">Example template, replace this with your template
-  {{ cool }}
-{# Supports Ansible filters by default too #}</div>
-
+</div>
         <ul class="nav nav-pills">
           <li><h4>Context
             <small><span class="glyphicon glyphicon-question-sign"
-                         title="Put your template context here, the backend will automatically detect json/yaml"></span></small>
+                         title="Put your template context here (json)"></span></small>
           </h4></li>
-          <li id="context-json" class="disabled"><a href="#">JSON</a></li>
-          <li id="context-yaml" class="disabled"><a href="#">YAML</a></li>
         </ul>
-        <div class="input" id="context">cool: me now</div>
+        <div class="input" id="context">
+{
+  "project_id": 1,
+  "cool": "beans"
+}
+</div>
       </div>
       <div class="col-sm-6">
-        <h4>Output
-          <small><span class="glyphicon glyphicon-question-sign" title="The rendered template will appear here"></span></small>
+        <h4>Output HTML
+          <small><span class="glyphicon glyphicon-question-sign" title="The rendered template will appear here (HTML)"></span></small>
+        </h4>
+        <div id="output-html"></div>
+        <h4>Output Plain
+          <small><span class="glyphicon glyphicon-question-sign" title="The rendered template will appear here (pre tag)"></span></small>
         </h4>
         <pre id="output"></pre>
       </div>
     </div>
-
-    <h4>Logs
-      <small><span class="glyphicon glyphicon-question-sign" title="Errors and debugging will show here"></span></small>
-    </h4>
-    <pre id="log"></pre>
 
     <footer>
       <p><small>
