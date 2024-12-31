@@ -30,18 +30,29 @@
     <pre id="log"></pre>
 
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-12">
+        <button id="toggle-button" class="btn btn-primary">Toggle Template/Context</button>
+      </div>
+      <script>
+        document.getElementById('toggle-button').addEventListener('click', function() {
+          var templateContextDiv = document.querySelector('#template-context');
+          if (templateContextDiv.style.display === 'none') {
+            templateContextDiv.style.display = 'block';
+          } else {
+            templateContextDiv.style.display = 'none';
+          }
+        });
+      </script>
+      <div class="col-sm-6" id="template-context">
         <h4>Jinja2 Template
           <small><span class="glyphicon glyphicon-question-sign" title="Put your Jinja2 template here"></span></small>
         </h4>
         <div class="input" id="jinja2">Example template, replace this with your template
 </div>
-        <ul class="nav nav-pills">
-          <li><h4>Context
-            <small><span class="glyphicon glyphicon-question-sign"
-                         title="Put your template context here (json)"></span></small>
-          </h4></li>
-        </ul>
+        <h4>Context
+          <small><span class="glyphicon glyphicon-question-sign"
+                        title="Put your template context here (json)"></span></small>
+        </h4>
         <div class="input" id="context">
 {
   "project_id": 1,
