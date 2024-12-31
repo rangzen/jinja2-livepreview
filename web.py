@@ -7,6 +7,8 @@ from jinja2 import Environment
 from jinja2.exceptions import TemplateError
 from project_runpy import env
 
+last_output = None
+
 
 @aiohttp_jinja2.template("index.html")
 async def index(request):
@@ -14,6 +16,13 @@ async def index(request):
         "ansible_version": "no ansible",
         "jinja2_version": jinja2.__version__,
     }
+
+
+async def index_html(request):
+    global last_output
+    if last_output is None:
+        return web.Response(text="No output available", content_type="text/plain")
+    return web.Response(text=last_output, content_type="text/html")
 
 
 class WebSocketHandler(web.View):
@@ -26,7 +35,7 @@ class WebSocketHandler(web.View):
         super().__init__(*args, **kwargs)
 
     async def context_type(self, value):
-        if not self._content_type is None and value == self._content_type:
+        if self._content_type is not None and value == self._content_type:
             return
 
         self._content_type = value
@@ -64,6 +73,8 @@ class WebSocketHandler(web.View):
     async def render_to_user(self):
         try:
             out = self.j2_env.from_string(self.j2_template).render(**self.context)
+            global last_output
+            last_output = out
         except TemplateError as e:
             await self.send(
                 {
@@ -100,6 +111,7 @@ if __name__ == "__main__":
     aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader("public"))
 
     app.router.add_route("GET", "/", index)  # TODO try and see if add_static will work
+    app.router.add_route("GET", "/html", index_html)
     app.router.add_route("GET", "/ws", WebSocketHandler)
     app.router.add_static("/static", "assets")
 
